@@ -153,7 +153,7 @@ export default function WhyChooseUs() {
         </motion.p>
       </motion.div>
 
-      {/* Enhanced animated and dynamic cards */}
+      {/* Enhanced animated and dynamic cards with shine effect */}
       <motion.div
         className="grid md:grid-cols-3 gap-8 mt-16 container mx-auto px-4"
         variants={containerVariants}
@@ -186,6 +186,20 @@ export default function WhyChooseUs() {
               className="relative p-6 rounded-2xl bg-gradient-to-br from-card/90 to-card/70 backdrop-blur-sm border border-border/50 hover:border-primary/30 transition-all duration-500 overflow-hidden"
               style={{ transformStyle: "preserve-3d" }}
             >
+              {/* Animated shine effect */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent"
+                animate={{
+                  x: ["-100%", "200%"]
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "linear",
+                  delay: index * 0.5
+                }}
+              />
+
               {/* Animated background gradient */}
               <motion.div
                 className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10 opacity-0"
@@ -268,7 +282,7 @@ export default function WhyChooseUs() {
         transition={{ duration: 8, repeat: Infinity }}
       />
       
-      {/* 3D Rotating "Ready to Start Your Adventure?" Form */}
+      {/* 360 Degree 3D Rotating "Ready to Start Your Adventure?" Form */}
       <div className="mt-16 text-center w-full z-50 container mx-auto px-4">
         <motion.div 
           className="relative max-w-3xl mx-auto"
@@ -284,19 +298,26 @@ export default function WhyChooseUs() {
               transformStyle: "preserve-3d",
             }}
             whileHover={{ 
-              rotateY: 5,
-              rotateX: 5,
+              rotateY: 15,
+              rotateX: 10,
               scale: 1.02,
               transition: { duration: 0.4 }
             }}
             animate={{
-              rotateY: [0, 5, 0, -5, 0],
-              rotateX: [0, -3, 0, 3, 0],
+              rotateY: [0, 360],
+              rotateX: [0, 10, 0, -10, 0],
             }}
             transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut"
+              rotateY: {
+                duration: 20,
+                repeat: Infinity,
+                ease: "linear"
+              },
+              rotateX: {
+                duration: 20,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }
             }}
           >
             {/* Animated shine effect */}
