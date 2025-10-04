@@ -1,0 +1,258 @@
+/* Updated: 2025-10-03T22:40:31.354Z */
+/* Updated: 2025-10-03T03:59:59.443Z */
+/* Updated: 2025-10-02T23:00:51.693Z */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  /* Shadcn/UI colors - Dark Theme */
+  --color-background: #1a1a1a;
+  --color-foreground: #ffffff;
+
+  --color-card: #2d2d2d;
+  --color-card-foreground: #ffffff;
+
+  --color-popover: #2d2d2d;
+  --color-popover-foreground: #ffffff;
+
+  --color-primary: #f1c40f;
+  --color-primary-foreground: #1a1a1a;
+
+  --color-secondary: #4ecdc4;
+  --color-secondary-foreground: #1a1a1a;
+
+  --color-muted: #2d2d2d;
+  --color-muted-foreground: #a0a0a0;
+
+  --color-accent: #4ecdc4;
+  --color-accent-foreground: #1a1a1a;
+
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #ffffff;
+
+  --color-border: #404040;
+  --color-input: #404040;
+  --color-ring: #f1c40f;
+
+  --color-chart-1: #f1c40f;
+  --color-chart-2: #4ecdc4;
+  --color-chart-3: #e74c3c;
+  --color-chart-4: #9b59b6;
+  --color-chart-5: #3498db;
+
+  --color-sidebar: #1a1a1a;
+  --color-sidebar-foreground: #ffffff;
+  --color-sidebar-primary: #f1c40f;
+  --color-sidebar-primary-foreground: #1a1a1a;
+  --color-sidebar-accent: #2d2d2d;
+  --color-sidebar-accent-foreground: #ffffff;
+  --color-sidebar-border: #404040;
+  --color-sidebar-ring: #f1c40f;
+
+  /* Custom Design System Colors */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a0a0a0;
+  --color-price-tag-background: #f1c40f;
+  --color-star-rating: #f1c40f;
+
+  /* Typography */
+  --font-display: "Inter", sans-serif;
+  --font-body: "Open Sans", sans-serif;
+
+  /* Shadcn/UI Radii */
+  --radius-lg: 0.75rem; /* 12px */
+  --radius-md: calc(0.75rem - 2px); /* 10px */
+  --radius-sm: calc(0.75rem - 4px); /* 8px */
+
+  /* Shadcn/UI Animations */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-ripple: ripple 0.6s ease-out;
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-shimmer: shimmer 2s linear infinite;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+  @keyframes ripple {
+    to {
+      width: 500px;
+      height: 500px;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+    }
+  }
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(241, 196, 15, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(241, 196, 15, 0.6);
+    }
+  }
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+  @keyframes gradient {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+  @keyframes backgroundMove {
+    0%, 100% {
+      background-position: center center;
+    }
+    25% {
+      background-position: left top;
+    }
+    50% {
+      background-position: right bottom;
+    }
+    75% {
+      background-position: right top;
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-border);
+  }
+}
+
+@layer base {
+  :root {
+    /* Shadcn/UI CSS Variables - Dark Theme */
+    --background: var(--color-background);
+    --foreground: var(--color-foreground);
+    --card: var(--color-card);
+    --card-foreground: var(--color-card-foreground);
+    --popover: var(--color-popover);
+    --popover-foreground: var(--color-popover-foreground);
+    --primary: var(--color-primary);
+    --primary-foreground: var(--color-primary-foreground);
+    --secondary: var(--color-secondary);
+    --secondary-foreground: var(--color-secondary-foreground);
+    --muted: var(--color-muted);
+    --muted-foreground: var(--color-muted-foreground);
+    --accent: var(--color-accent);
+    --accent-foreground: var(--color-accent-foreground);
+    --destructive: var(--color-destructive);
+    --destructive-foreground: var(--color-destructive-foreground);
+    --border: var(--color-border);
+    --input: var(--color-input);
+    --ring: var(--color-ring);
+    --chart-1: var(--color-chart-1);
+    --chart-2: var(--color-chart-2);
+    --chart-3: var(--color-chart-3);
+    --chart-4: var(--color-chart-4);
+    --chart-5: var(--color-chart-5);
+    --radius: var(--radius-lg);
+    --sidebar-background: var(--color-sidebar);
+    --sidebar-foreground: var(--color-sidebar-foreground);
+    --sidebar-primary: var(--color-sidebar-primary);
+    --sidebar-primary-foreground: var(--color-sidebar-primary-foreground);
+    --sidebar-accent: var(--color-sidebar-accent);
+    --sidebar-accent-foreground: var(--color-sidebar-accent-foreground);
+    --sidebar-border: var(--color-sidebar-border);
+    --sidebar-ring: var(--color-sidebar-ring);
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--color-text-primary);
+  }
+
+  h1 {
+    font-size: 3.75rem; /* 60px */
+    font-weight: 700; /* bold */
+  }
+
+  h2 {
+    font-size: 2.5rem; /* 40px */
+    font-weight: 700; /* bold */
+  }
+
+  h3 {
+    font-size: 1.5rem; /* 24px */
+    font-weight: 600; /* semibold */
+  }
+
+  p {
+    font-size: 1rem; /* 16px */
+    font-weight: 400; /* regular */
+    color: var(--color-text-secondary);
+  }
+
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+/* Hide Next.js error overlay portal */
+nextjs-portal {
+  display: none !important;
+}
