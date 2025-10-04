@@ -82,157 +82,275 @@ const features: Feature[] = [
   },
 ];
 
-const FeatureCard = ({ feature, isDesktop }: { feature: Feature; isDesktop: boolean; }) => {
-  const Icon = feature.icon;
-
-  return (
-    <div
-      className={cn(
-        "relative rounded-2xl p-6 text-white shadow-lg transition-all duration-300 ease-out",
-        feature.bgClass,
-        isDesktop ? `${feature.desktopPosition} hover:scale-105 hover:shadow-2xl hover:z-40` : ""
-      )}
-    >
-      <div className="absolute -top-2 left-1/2 -translate-x-1/2">
-        <div className="w-1.5 h-1.5 rounded-full bg-white/50"></div>
-        <div className="w-[1px] h-2 bg-white/50 mx-auto"></div>
-      </div>
-      <div className="flex flex-col h-full">
-        <div className="flex items-start justify-between">
-          <div className="bg-black/20 rounded-lg p-2">
-            <Icon className="w-6 h-6" />
-          </div>
-          <span className="font-bold text-lg bg-black/20 px-3 py-1 rounded-full text-xs sm:text-sm">
-            {feature.metric}
-          </span>
-        </div>
-        <h3 className="text-xl font-bold mt-4">{feature.title}</h3>
-        <p className="text-white/80 text-sm mt-2 flex-grow">{feature.description}</p>
-      </div>
-    </div>
-  );
-};
-
 export default function WhyChooseUs() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 1], [0, -100]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.15,
         delayChildren: 0.2
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, x: -50, scale: 0.8 },
+    hidden: { opacity: 0, y: 50, scale: 0.9, rotateX: -15 },
     visible: { 
       opacity: 1, 
-      x: 0, 
+      y: 0, 
       scale: 1,
+      rotateX: 0,
       transition: { duration: 0.6, ease: "easeOut" }
     }
   };
 
   return (
-    <section ref={ref} className="py-20 relative overflow-hidden" style={{ y }}>
+    <section ref={ref} className="py-20 relative overflow-hidden">
       <motion.div
-        className="container mx-auto px-4"
+        className="container mx-auto px-4 text-center"
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
       >
-        <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1 text-sm font-semibold text-primary">
+        {/* Centered badge */}
+        <motion.div 
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-primary/10 px-4 py-1 text-sm font-semibold text-primary mb-4"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 0.6 }}
+        >
           <Sparkles className="h-4 w-4" />
           Why Ghoomo Saste Me?
-        </div>
-        <h2 className="text-4xl lg:text-5xl font-bold mt-4 text-text-primary">
-          Why Thousands Choose Us
-        </h2>
-        <p className="mt-4 max-w-2xl mx-auto text-text-secondary leading-relaxed">
+        </motion.div>
+
+        {/* Centered heading with gradient text effect like destinations */}
+        <motion.h2 
+          className="text-4xl lg:text-5xl font-bold mt-4 text-center"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          WHY THOUSANDS{' '}
+          <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            CHOOSE US
+          </span>
+        </motion.h2>
+
+        {/* Centered subtitle */}
+        <motion.p 
+          className="mt-4 max-w-2xl mx-auto text-text-secondary leading-relaxed text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.3, duration: 0.6 }}
+        >
           We're not just another travel agency. We're your adventure partners,
           committed to making every journey unforgettable and affordable.
-        </p>
+        </motion.p>
       </motion.div>
 
+      {/* Enhanced animated and dynamic cards */}
       <motion.div
-        className="grid md:grid-cols-3 gap-8 mt-16"
+        className="grid md:grid-cols-3 gap-8 mt-16 container mx-auto px-4"
         variants={containerVariants}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
       >
         {features.map((feature, index) => (
           <motion.div
             key={index}
             variants={itemVariants}
-            className="relative group cursor-pointer p-6 rounded-2xl bg-card/80 backdrop-blur-sm border border-border/50 hover:border-primary/30 transition-all duration-500 hover:transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/20"
+            className="relative group cursor-pointer"
             whileHover={{ 
-              rotateX: 5, 
+              y: -15,
               rotateY: 5,
-              scale: 1.05 
+              rotateX: 5,
+              scale: 1.05,
+              transition: { duration: 0.4, ease: "easeOut" }
             }}
-            transition={{ duration: 0.3 }}
+            style={{ transformStyle: "preserve-3d" }}
           >
+            {/* Glowing effect on hover */}
             <motion.div
-              className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg"
-              initial={{ scale: 0, rotate: 180 }}
-              whileInView={{ scale: 1, rotate: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+              className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/50 via-accent/50 to-primary/50 opacity-0 blur-xl"
+              whileHover={{ opacity: 0.6 }}
+              transition={{ duration: 0.3 }}
+            />
+
+            {/* Card content */}
+            <motion.div
+              className="relative p-6 rounded-2xl bg-gradient-to-br from-card/90 to-card/70 backdrop-blur-sm border border-border/50 hover:border-primary/30 transition-all duration-500 overflow-hidden"
+              style={{ transformStyle: "preserve-3d" }}
             >
-              <feature.icon className="w-8 h-8 text-primary-foreground" />
-            </motion.div>
-            <div className="absolute -top-2 left-1/2 -translate-x-1/2">
-              <div className="w-1.5 h-1.5 rounded-full bg-white/50"></div>
-              <div className="w-[1px] h-2 bg-white/50 mx-auto"></div>
-            </div>
-            <div className="flex flex-col h-full">
-              <div className="flex items-start justify-between">
-                <div className="bg-black/20 rounded-lg p-2">
-                  <feature.icon className="w-6 h-6" />
-                </div>
-                <span className="font-bold text-lg bg-black/20 px-3 py-1 rounded-full text-xs sm:text-sm">
+              {/* Animated background gradient */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10 opacity-0"
+                whileHover={{ opacity: 1, scale: 1.2 }}
+                transition={{ duration: 0.6 }}
+              />
+
+              {/* Icon with enhanced animations */}
+              <motion.div
+                className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg relative z-10"
+                initial={{ scale: 0, rotate: -180 }}
+                whileInView={{ scale: 1, rotate: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.6, type: "spring" }}
+                viewport={{ once: true }}
+                whileHover={{ 
+                  rotate: 360,
+                  scale: 1.2,
+                  transition: { duration: 0.6 }
+                }}
+              >
+                <feature.icon className="w-8 h-8 text-primary-foreground" />
+              </motion.div>
+
+              {/* Metric badge with animation */}
+              <motion.div
+                className="text-center mb-3 relative z-10"
+                whileHover={{ scale: 1.1, y: -5 }}
+                transition={{ duration: 0.3 }}
+              >
+                <span className="inline-block font-bold text-lg bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent px-3 py-1 rounded-full text-sm border border-primary/30">
                   {feature.metric}
                 </span>
-              </div>
-              <h3 className="text-xl font-bold mt-4">{feature.title}</h3>
-              <p className="text-white/80 text-sm mt-2 flex-grow">{feature.description}</p>
-            </div>
+              </motion.div>
+
+              {/* Title */}
+              <h3 className="text-xl font-bold mt-4 text-center relative z-10">{feature.title}</h3>
+
+              {/* Description */}
+              <p className="text-muted-foreground text-sm mt-2 text-center relative z-10">
+                {feature.description}
+              </p>
+
+              {/* Floating particles */}
+              <motion.div
+                className="absolute top-4 right-4 w-2 h-2 rounded-full bg-primary/50"
+                animate={{
+                  y: [0, -15, 0],
+                  opacity: [0.5, 1, 0.5]
+                }}
+                transition={{ duration: 2, repeat: Infinity, delay: index * 0.2 }}
+              />
+              <motion.div
+                className="absolute bottom-4 left-4 w-3 h-3 rounded-full bg-accent/50"
+                animate={{
+                  y: [0, -20, 0],
+                  opacity: [0.5, 1, 0.5]
+                }}
+                transition={{ duration: 2.5, repeat: Infinity, delay: index * 0.2 }}
+              />
+            </motion.div>
           </motion.div>
         ))}
       </motion.div>
       
+      {/* Animated background gradients */}
       <motion.div
-        className="absolute inset-0"
-        style={{ y: useTransform(scrollY, [0, 1], [0, -100]) }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-accent/10 to-transparent"></div>
-      </motion.div>
+        className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-10"
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3]
+        }}
+        transition={{ duration: 8, repeat: Infinity }}
+      />
+      <motion.div
+        className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl -z-10"
+        animate={{
+          scale: [1.2, 1, 1.2],
+          opacity: [0.5, 0.3, 0.5]
+        }}
+        transition={{ duration: 8, repeat: Infinity }}
+      />
       
-      <div className="mt-16 text-center w-full z-50">
-         <div className="bg-card/50 backdrop-blur-md border border-primary/20 rounded-2xl p-6 sm:p-8 max-w-3xl mx-auto shadow-[0_0_80px_rgba(241,196,15,0.15)]">
-          <h3 className="text-2xl sm:text-3xl font-bold text-text-primary">
-            Ready to Start Your Adventure?
-          </h3>
-          <p className="text-text-secondary mt-3">
-            Join thousands of happy travelers who've discovered the world with
-            us. Your next unforgettable journey is just a click away!
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base">
-              Browse Destinations
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <Button size="lg" variant="outline" className="font-bold border-accent text-accent hover:bg-accent hover:text-accent-foreground text-base">
-              Join Community
-            </Button>
-          </div>
-         </div>
+      {/* 3D Rotating "Ready to Start Your Adventure?" Form */}
+      <div className="mt-16 text-center w-full z-50 container mx-auto px-4">
+        <motion.div 
+          className="relative max-w-3xl mx-auto"
+          style={{ perspective: "1000px" }}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+        >
+          <motion.div
+            className="bg-gradient-to-br from-card/90 to-card/70 backdrop-blur-md border border-primary/20 rounded-2xl p-6 sm:p-8 shadow-[0_0_80px_rgba(241,196,15,0.15)] relative overflow-hidden"
+            style={{ 
+              transformStyle: "preserve-3d",
+            }}
+            whileHover={{ 
+              rotateY: 5,
+              rotateX: 5,
+              scale: 1.02,
+              transition: { duration: 0.4 }
+            }}
+            animate={{
+              rotateY: [0, 5, 0, -5, 0],
+              rotateX: [0, -3, 0, 3, 0],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            {/* Animated shine effect */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent"
+              animate={{
+                x: ["-100%", "200%"]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
+
+            {/* Content */}
+            <div className="relative z-10">
+              <motion.h3 
+                className="text-2xl sm:text-3xl font-bold text-text-primary"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              >
+                Ready to Start Your Adventure?
+              </motion.h3>
+              <p className="text-text-secondary mt-3">
+                Join thousands of happy travelers who've discovered the world with
+                us. Your next unforgettable journey is just a click away!
+              </p>
+              <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+                <motion.div whileHover={{ scale: 1.1, rotate: 2 }} whileTap={{ scale: 0.95 }}>
+                  <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base shadow-lg">
+                    Browse Destinations
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.1, rotate: -2 }} whileTap={{ scale: 0.95 }}>
+                  <Button size="lg" variant="outline" className="font-bold border-accent text-accent hover:bg-accent hover:text-accent-foreground text-base shadow-lg">
+                    Join Community
+                  </Button>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* 3D depth layers */}
+            <motion.div
+              className="absolute inset-0 rounded-2xl border border-primary/10"
+              style={{ transform: "translateZ(-20px)" }}
+            />
+            <motion.div
+              className="absolute inset-0 rounded-2xl border border-accent/10"
+              style={{ transform: "translateZ(-40px)" }}
+            />
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

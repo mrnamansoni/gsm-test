@@ -103,8 +103,8 @@ export default function HeroSection() {
         />
       </motion.div>
 
-      {/* Slideshow indicators - positioned lower and responsive for mobile */}
-      <div className="absolute bottom-8 sm:bottom-16 left-1/2 transform -translate-x-1/2 z-30 flex gap-1 sm:gap-2">
+      {/* Slideshow indicators - HIDDEN */}
+      <div className="hidden absolute bottom-8 sm:bottom-16 left-1/2 transform -translate-x-1/2 z-30 flex gap-1 sm:gap-2">
         {slideshowImages.map((_, index) => (
           <button
             key={index}
@@ -119,7 +119,7 @@ export default function HeroSection() {
         ))}
       </div>
 
-      {/* Masked Text at Top Center - responsive sizes */}
+      {/* Masked Text at Top Center - responsive sizes - INCREASED BY 20% */}
       <motion.div
         className="absolute top-16 sm:top-24 left-0 right-0 z-30 flex justify-center px-4"
         initial={{ opacity: 0, y: -20 }}
@@ -127,7 +127,7 @@ export default function HeroSection() {
         transition={{ delay: 0.3, duration: 0.8 }}
       >
         <h1 
-          className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-bold bg-clip-text text-transparent transition-all duration-2000 scale-100 whitespace-nowrap"
+          className="text-[4.8rem] sm:text-6xl md:text-[8.4rem] lg:text-[10.8rem] font-bold bg-clip-text text-transparent transition-all duration-2000 scale-100 whitespace-nowrap"
           style={{
             backgroundImage: "url('https://wakflow.com/images/bg2')",
             backgroundSize: "200% 200%",
@@ -143,14 +143,14 @@ export default function HeroSection() {
         </h1>
       </motion.div>
 
-      {/* Particle Text Effect Layer - Center - responsive container */}
+      {/* Particle Text Effect Layer - Center - INCREASED BY 20% */}
       <motion.div
         className="absolute inset-0 z-20 flex items-center justify-center w-full max-w-[90vw] mx-auto"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 1 }}
         style={{ opacity }}>
-        <div className="w-full h-[200px] sm:h-[300px] max-w-[800px] mx-auto">
+        <div className="w-full h-[240px] sm:h-[360px] max-w-[960px] mx-auto">
           <ParticleTextEffect
             className="w-full h-full" />
         </div>
